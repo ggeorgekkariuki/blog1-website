@@ -11,10 +11,16 @@
 |
 */
 
+// The Post Controller
+
 Route::get('/', 'PostController@index');
 
 Route::get('/posts/{post}', 'PostController@show');
 
 Route::get('/create/create', 'PostController@create');
 
-Route::post( '/posts', 'PostController@store' );
+Route::post('/posts', 'PostController@store' );
+
+//The Comments Controller
+
+Route::post('/posts/{post}/comments ','CommentsController@store');
