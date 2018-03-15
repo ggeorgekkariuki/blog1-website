@@ -8,9 +8,14 @@ use App\Comment;
 
 class CommentsController extends Controller
 {
-    public function store(Post $post) {
+    //Only an Authentic user can leave a comment
+    public function __construct () {
 
-        $post->addComment(request('body'));
+        $this -> middleware('auth');
+
+    }
+
+    public function store(Post $post) {
 
         // $this->validate(request(), 
         //     ['body'=>'required|min:2']
@@ -21,6 +26,13 @@ class CommentsController extends Controller
         //     'post_id' => $post -> id
         // ]);
 
+
+        auth() -> user() -> submitComment(
+
+            $post->addComment(request('body'))
+            
+        );
+        
         return back();
     }
 }

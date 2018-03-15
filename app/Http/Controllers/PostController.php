@@ -7,11 +7,26 @@ use App\Post;
 
 class PostController extends Controller
 {
+    /* 
+        These views are only for authenticated users a
+     */
+    public function __construct () {
+
+        $this->middleware('auth')->except(['index', 'show']);
+
+    }
+    
     public function index() {
 
         $posts = Post::latest()->get();
 
-        return view('posts.index', compact('posts'));
+        $archives = Post::selectRaw('year(created_at) AS year,
+             monthname(created_at) AS month, count(*) AS published')
+            ->groupBy ('year', 'month')
+            ->get()
+            ->toArray();
+
+        return view('posts.index', compact('posts', 'archives'));
     }
 
     public function show(Post $post) {
@@ -34,7 +49,19 @@ class PostController extends Controller
         // This method both create a new post and save it
         //remember to use the protected in the model
         //also have a csrf_field method in the web page
-        Post::create(request(['title', 'body']));
+
+        // Post::create(
+        //     ['title' => request('title'),
+        //     'body' => request('body'),
+        //     'user_id' => auth()->user()->id]
+        // );
+
+        //Only a signed in user can publish a post
+        auth()->user()->publish(
+
+            new Post(request(['title', 'body']))
+
+        );
 
         return redirect('/');
     }

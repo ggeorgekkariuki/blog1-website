@@ -13,7 +13,7 @@
 
 // The Post Controller
 
-Route::get('/', 'PostController@index');
+Route::get('/', 'PostController@index')->name('home');
 
 Route::get('/posts/{post}', 'PostController@show');
 
@@ -24,3 +24,13 @@ Route::post('/posts', 'PostController@store' );
 //The Comments Controller
 
 Route::post('/posts/{post}/comments ','CommentsController@store');
+
+//The Registration Controller
+Route::get('/register','RegistrationController@create');
+Route::post('/register ','RegistrationController@store');
+
+
+//The Login/ Session Controller
+Route::get('/login','SessionController@create')->name('login');
+Route::post('/login','SessionController@store');
+Route::get('/logout','SessionController@destroy');

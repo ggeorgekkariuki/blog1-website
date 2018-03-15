@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Post;
 
 class User extends Authenticatable
 {
@@ -26,4 +27,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //A user can have many posts
+    //This function finds all posts by a user
+    public function posts() {
+
+        return $this->hasMany(Post::class);
+
+    }
+
+    //This function allows a user to publish a post
+    public function publish(Post $post) {
+
+        $this->posts()->save($post);
+        
+    }
 }

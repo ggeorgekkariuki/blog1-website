@@ -1,6 +1,6 @@
-    <div class="container">
+<div class="container">
 
-      <div class="row">
+    <div class="row">
 
         <div class="col-sm-8 blog-main">
 
@@ -12,6 +12,6 @@
 
         @include('layouts.sidebar')        
 
-      </div><!-- /.row -->
+     </div><!-- /.row -->
 
-    </div><!-- /.container -->
+</div><!-- /.container -->
