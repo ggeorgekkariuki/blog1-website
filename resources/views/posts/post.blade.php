@@ -1,18 +1,21 @@
 <div class="blog-post">
-        <h2 class="blog-post-title">
 
-            <a href= '/posts/{{$post->id}}'>
-            {{$post -> title}}
-            </a>
-            
-        </h2>
+    <h2 class="blog-post-title">
 
-        <p class="blog-post-meta">
-            {{$post -> created_at -> toFormattedDateString() }}  
-            by 
-            <a href="#"> {{ $post->user->name }} </a>
-        </p>
+        <a href= '/posts/{{$post->id}}'>
+        {{$post -> title}}
+        </a>
+        
+    </h2>
 
-        {{$post -> body}}
+    <p class="blog-post-meta">
 
-  </div><!-- /.blog-post -->
+        {{$post -> created_at -> toFormattedDateString() }}  
+        by 
+        <a href="#"> {{ $post->user->name }} </a>
+        
+    </p>
+
+    {{$post -> body}}
+
+</div><!-- /.blog-post -->

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Post;
+use App\Comment;
 
 class User extends Authenticatable
 {
@@ -36,10 +37,23 @@ class User extends Authenticatable
 
     }
 
+    public function comments() {
+
+        return $this -> hasMany(Comment::class);
+
+    }
+
     //This function allows a user to publish a post
     public function publish(Post $post) {
 
         $this->posts()->save($post);
         
+    }
+
+    //This function allows a user to add a comment to a post
+    public function submitComment(Comment $comment) {
+
+        $this -> comments() -> save($comment);
+
     }
 }

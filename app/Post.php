@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -23,4 +24,32 @@ class Post extends Model
 
         $this -> comments() -> create(compact ('body'));
     }
+
+    //This is a query scope
+    public function scopeFilter ($query, $filters) {
+
+        //This is where we match the month and the year that directs the path
+        if($month = $filters['month']){
+
+            $query->whereMonth('created_at', Carbon::parse($month)-> month);
+            
+        }
+        if($year = $filters['year']){
+
+            $query->whereYear('created_at', $year);
+            
+        }
+        
+    }
+
+    public static function archives() {
+
+        return static::selectRaw('year(created_at) AS year,
+             monthname(created_at) AS month, count(*) AS published')
+            ->groupBy ('year', 'month')
+            ->orderByRaw ('min(created_at) desc')
+            ->get()
+            ->toArray();
+    }
+
 }

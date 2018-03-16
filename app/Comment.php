@@ -17,4 +17,16 @@ class Comment extends Model
         return $this->belongsTo(User::class);
 
     }
+
+    public function submitComment(Comment $comment) {
+
+        // auth()->user()->submitComment(
+
+        //     new Comment(request('body'))
+
+        // );
+
+        $this -> user() -> save($comment);
+
+    }
 }

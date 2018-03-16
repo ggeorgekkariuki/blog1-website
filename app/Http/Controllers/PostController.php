@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use \Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -18,15 +19,27 @@ class PostController extends Controller
     
     public function index() {
 
-        $posts = Post::latest()->get();
+        $posts = Post::latest()
+            -> filter(request(['month', 'year']))
+            -> get();
 
-        $archives = Post::selectRaw('year(created_at) AS year,
-             monthname(created_at) AS month, count(*) AS published')
-            ->groupBy ('year', 'month')
-            ->get()
-            ->toArray();
+        //This is where we match the month and the year that directs the path
+        // if($month = request('month')){
 
-        return view('posts.index', compact('posts', 'archives'));
+        //     $posts->whereMonth('created_at', Carbon::parse($month)-> month);
+            
+        // }
+        // if($year = request('year')){
+
+        //     $posts->whereYear('created_at', $year);
+            
+        // }
+
+        // $posts = $posts->get();
+
+        //This is an array
+
+        return view('posts.index', compact('posts'));
     }
 
     public function show(Post $post) {
@@ -36,7 +49,9 @@ class PostController extends Controller
     }
 
     public function create() {
+
         return view('create.create');
+
     }
 
     public function store() {
