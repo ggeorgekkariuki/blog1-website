@@ -31,13 +31,16 @@ class SessionController extends Controller
         // Attempt to authenticate the user and Sign them in
         // If the user does not exist, return back to that page
        if (! (auth()->attempt(request(['email', 'password'])) ) ) {
-        
+       
              // Redirect to the home page
            return back() -> withErrors([
                'message' => 'Please check credentials'
            ]);
 
        }
+
+       //On successful login, flash this message
+        session() -> flash('message', 'Welcome back!');
 
         //Only a user with valid credentials will be redirected to the homepage
         return redirect() -> home();

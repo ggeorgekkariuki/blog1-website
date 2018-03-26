@@ -26,8 +26,17 @@ class AppServiceProvider extends ServiceProvider
         //layouts.sidebar is the name of the view that is loaded
         view() -> composer('layouts.sidebar', function ($view){
 
-            //Add a variable called archives and find the method
+            $archives = \App\Post::archives();
+            $tags = \App\Tag::has('posts') -> pluck('name');
+
+            $view -> with (compact(['archives', 'tags']));
+
+            /* //Add a varable called archives and find the method
             $view -> with('archives', \App\Post::archives());
+
+            //Add a variable called tags and find the method
+            //Only the tags with posts will be displayed
+            $view -> with('tags', \App\Tag::has('posts') -> pluck('name')); */
 
         });
 

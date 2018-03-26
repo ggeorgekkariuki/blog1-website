@@ -2,7 +2,7 @@
  * Globals
  */
 
- @media (min-width: 48em) {
+@media (min-width: 48em) {
     html {
       font-size: 18px;
     }
@@ -163,5 +163,15 @@
   }
   .blog-footer p:last-child {
     margin-bottom: 0;
+  }
+
+  /* 
+  *Flash message
+  */
+  #flash-message {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
   }
   

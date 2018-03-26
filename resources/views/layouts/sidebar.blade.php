@@ -20,6 +20,23 @@
       
     </ol>
   </div>
+
+  <div class="sidebar-module">
+    <h4>Current tags</h4>
+    <ol class="list-unstyled">
+    
+      @foreach ($tags as $tag)
+
+        <li>
+          <a href="/posts/tags/{{$tag}}">
+            {{$tag}}
+          </a>                   
+        </li>
+      
+      @endforeach 
+      
+    </ol>
+  </div>
   
   <div class="sidebar-module">
     <h4>Elsewhere</h4>

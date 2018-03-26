@@ -37,7 +37,7 @@ class PostController extends Controller
 
         // $posts = $posts->get();
 
-        //This is an array
+        //This is an array        
 
         return view('posts.index', compact('posts'));
     }
@@ -77,6 +77,8 @@ class PostController extends Controller
             new Post(request(['title', 'body']))
 
         );
+
+        session() -> flash('message','Your post has now been published');
 
         return redirect('/');
     }

@@ -5,6 +5,20 @@
     <h1> {{$post -> title}} </h1>
     <hr>
 
+    <!-- The tags of a post will appear here -->
+
+    
+        <ul>
+            @foreach ($post -> tags as $tag)
+            <li>
+                <a href = "/posts/tags/{{$tag -> name}} ">
+                    {{$tag -> name}}
+                </a>
+            </li>
+            @endforeach
+        </ul>
+    
+
     {{$post -> body}}
 
 

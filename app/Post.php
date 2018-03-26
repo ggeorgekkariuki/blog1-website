@@ -22,7 +22,15 @@ class Post extends Model
     //This function creates and saves a comment's body
     public function addComment($body) {
 
-        $this -> comments() -> create(compact ('body'));
+        return $this -> comments() -> create(compact ('body'));
+    }
+
+    //A tag is a classification of a post eg personal, php, android etc
+    public function tags() {
+
+        //A post can belong to many tags
+        return $this -> belongsToMany(Tag::class);
+
     }
 
     //This is a query scope
@@ -51,5 +59,6 @@ class Post extends Model
             ->get()
             ->toArray();
     }
+
 
 }

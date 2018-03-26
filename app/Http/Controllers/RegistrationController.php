@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Mail\Welcome;
+use App\Http\Requests\RegistrationForm;
 
 class RegistrationController extends Controller
 {
@@ -17,41 +18,37 @@ class RegistrationController extends Controller
 
     //Save the new user in the database
 
-    public function store() {
+    public function store(RegistrationForm $form) {
+
+		/*
+				 **FORM REQUEST OBJECTS AND CLASSES LESSON**
+
+		This lesson is about dedicating a class to do the backend stuff
+		for a cleaner code.
+
+		1. Use command
+			php artisan make:request <name> 
+		   to make a new form request class
+		2. Find the new file at App/Http/Requests/<name>
+		3. Move the validation rules that were in this method
+		 */
     	// dd(request()->all());
-    	//Validate the form
-    	$this->validate(request(), [
-    		'name' => 'required',
-    		'email' => 'required|email',
-    		'password' => 'required|confirmed']);
+		$form -> persist();
 
-    	//Create and save the user
-		$request = request()->all();
-		$request['password'] = bcrypt($request['password']);
-    	$user = User::create($request);
+		/*
+		 	** SESSIONS METHOD **
+		A session is a message that displays on a screen giving short information
+		about an activity a user has engaged in. It can hold data that may be needed
+		elsewhere. 
 
-    	//Sign them in
-		//This is an Auth helper function
-		//It does not require importation of the class
-    	auth()->login($user);
+		Otherwise, we can use a FLASH to display a message for ONLY one page which is 
+		great for status messages that displays a set message
 
-		/* 
-				*MAILING LESSON*
-
-		We want to send a an email to every successful user who logs in
-		These are the steps to do so 
-		1. Import the mail facade
-		2. Create a new email class using php artisan make:mail <name>
-		3. Add the <name> to the 'send ()' method
-		4. Go to the new page App/Mail/<name>
-		5. Create a resources file for the email
-		6. View the config/mail and .env files for MAIL_ for details
-			Use these details to view the email and set up as required
-		7. Pass any arguments into this facade as configured in the Mail/<name>
-
+		Once the user registers, we are redirected to the home page with the posts,
+		We plant another session() method in the layouts.header file.
 		*/
-		
-		\Mail::to($user) -> send (new Welcome ($user));
+
+		session() -> flash('message', 'Thank you for signing up to this website');
 
     	//Redirect to the home page
     	return redirect()->home();

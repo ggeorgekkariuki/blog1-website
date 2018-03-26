@@ -21,6 +21,7 @@ Route::get('/create/create', 'PostController@create');
 
 Route::post('/posts', 'PostController@store' );
 
+
 //The Comments Controller
 
 Route::post('/posts/{post}/comments ','CommentsController@store');
@@ -34,3 +35,6 @@ Route::post('/register ','RegistrationController@store');
 Route::get('/login','SessionController@create')->name('login');
 Route::post('/login','SessionController@store');
 Route::get('/logout','SessionController@destroy');
+
+//The Tag Controller
+Route::get('/posts/tags/{tag}','TagController@index');

@@ -18,6 +18,9 @@ return [
 
     'driver' => env('MAIL_DRIVER', 'smtp'),
 
+    /* MAIL_USERNAME = 98fe2e80c40918
+       MAIL_PASSWORD = 9d74832d68fdd7 */
+
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
